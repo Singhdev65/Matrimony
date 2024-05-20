@@ -1,0 +1,16 @@
+import { NextRequest, NextResponse } from "next/server";
+
+export const GET = (req: NextRequest) => {
+  return new NextResponse("Hello", { status: 200 });
+};
+
+// GET ALL USERS
+// DELETE MANY USERS
+
+// GET ONE USER(GET ANY USER'S DATA WITH USERID)
+// UPDATE ONE USER(UPDATE ANY USER'S DATA WITH USERID)
+// DELETE ONE USER(DELETE ANY USER'S DATA WITH USERID)
+
+// GET ME(GET MY PROFILE DATA )
+// UPDATE ME(UPDATE MY PROFILE EXCEPT PASSWORD)
+// DELETE ME(PUT MYSELF IN HYBERNATION)
