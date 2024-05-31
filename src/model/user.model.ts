@@ -4,7 +4,7 @@ export interface User extends Document {
   fname: string;
   lname: string;
   username: string;
-  dob: Date;
+  dob: String;
   password: string;
   verifyCode: string;
   verifyCodeExpiry: Date;
@@ -24,6 +24,9 @@ const UserSchema: Schema<User> = new Schema({
     required: [true, "First Name is required"],
   },
   lname: {
+    type: String,
+  },
+  dob: {
     type: String,
   },
   email: {
