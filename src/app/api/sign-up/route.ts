@@ -89,9 +89,9 @@ export async function POST(request: Request) {
     return Response.json(
       {
         status: true,
-        message: "User Registered Successfully",
+        message: "Please enter the OTP sent on your Email",
       },
-      { status: 201 }
+      { status: 200 }
     );
   } catch (error) {
     console.error("Error registering user", error);

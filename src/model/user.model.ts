@@ -10,7 +10,24 @@ export interface User extends Document {
   verifyCodeExpiry: Date;
   email: string;
   phone: string;
+  city: string;
+  state: string;
+  country: string;
+  religion: string;
+  caste: string;
   isVerified: boolean;
+  noOfSiblings: number;
+  siblingsDescription: string;
+  smoke: boolean;
+  drink: boolean;
+  foodHabit: string;
+  motherTongue: string;
+  languageKnown: object;
+  maritalStatus: object;
+  children: object;
+  familyType: object;
+  familyStatus: object;
+  occupation: object;
 }
 
 const UserSchema: Schema<User> = new Schema({
@@ -29,6 +46,30 @@ const UserSchema: Schema<User> = new Schema({
   dob: {
     type: String,
   },
+  city: {
+    type: String,
+  },
+  state: {
+    type: String,
+  },
+  country: {
+    type: String,
+  },
+  caste: {
+    type: String,
+  },
+  religion: {
+    type: String,
+  },
+  foodHabit: {
+    type: String,
+  },
+  noOfSiblings: {
+    type: Number,
+  },
+  siblingsDescription: {
+    type: String,
+  },
   email: {
     type: String,
     required: [true, "Email is required"],
@@ -40,25 +81,69 @@ const UserSchema: Schema<User> = new Schema({
   },
   phone: {
     type: String,
-    required: [true, "Phone is required"],
     trim: true,
-    unique: true,
   },
   password: {
     type: String,
-    required: [true, "Password is required"],
   },
   verifyCode: {
     type: String,
-    required: [true, "Verify Code is required"],
   },
   verifyCodeExpiry: {
     type: Date,
-    required: [true, "Verify Code expiry is required"],
   },
   isVerified: {
     type: Boolean,
     default: false,
+  },
+  smoke: {
+    type: Boolean,
+    default: false,
+  },
+  drink: {
+    type: Boolean,
+    default: false,
+  },
+  motherTongue: {
+    type: String,
+  },
+  maritalStatus: {
+    type: String,
+    enum: [
+      "Never married",
+      "Widowed",
+      "Widower",
+      "Divorced",
+      "Awaiting divorce",
+    ],
+  },
+  children: {
+    type: String,
+    enum: ["Yes", "No", "Not Applicable"],
+  },
+  familyType: {
+    type: String,
+    enum: ["Nuclear", "joint"],
+  },
+  familyStatus: {
+    type: String,
+    enum: [
+      "middle class",
+      "upper middle class",
+      "lower middle class",
+      "Affluent",
+      "Rich",
+    ],
+  },
+  occupation: {
+    type: String,
+    enum: [
+      "Govt",
+      "Private",
+      "Business",
+      "Self Employed",
+      "Home maker / Not Working",
+    ],
   },
 });
 

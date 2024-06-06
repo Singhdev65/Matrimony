@@ -48,31 +48,6 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-      async profile(profile) {
-        console.log(profile, "PROFILE");
-        try {
-          const verifyCode = Math.floor(
-            100000 + Math.random() * 900000
-          ).toString();
-          if (!profile) {
-            throw new Error("No User found with this credential");
-          }
-          const newUser = new UserModel({
-            fname: profile.given_name,
-            lname: profile.family_name,
-            username: profile.given_name + profile.iat,
-            verifyCode,
-            verifyCodeExpiry: profile.exp,
-            email: profile.email,
-            isVerified: profile.email_verified,
-          });
-
-          await newUser.save();
-          return profile;
-        } catch (error: any) {
-          throw new Error(error);
-        }
-      },
     }),
   ],
   callbacks: {
@@ -91,6 +66,30 @@ export const authOptions: NextAuthOptions = {
         session.user.username = token.username;
       }
       return session;
+    },
+    async signIn({ profile }) {
+      try {
+        await dbConnect();
+        const existingUserVerifiedByEmail = await UserModel.findOne({
+          email: profile?.email,
+        });
+
+        if (!existingUserVerifiedByEmail) {
+          const newUser = new UserModel({
+            fname: profile.given_name,
+            lname: profile.family_name,
+            username: profile.given_name + profile.iat,
+            email: profile?.email,
+            isVerified: profile?.email_verified,
+          });
+
+          await newUser.save();
+        }
+
+        return true;
+      } catch (error) {
+        return false;
+      }
     },
   },
   pages: {
