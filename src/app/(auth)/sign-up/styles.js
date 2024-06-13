@@ -10,6 +10,16 @@ export const HeaderContainer = styled.header`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `;
 
+export const GetStarted = styled.h2`
+  color: #fff;
+  font-weight: bold;
+  text-shadow: 2px 2px 2px  #c70039;
+`;
+
+export const HaveanAccount = styled.h3`
+  color: #fff;
+`;
+
 export const Logo = styled.img`
   height: 40px;
 `;
@@ -69,7 +79,9 @@ export const SignupContainer = styled.div`
 `;
 export const LeftSection = styled.div`
   flex: 1;
-  padding: 50px 200px 50px 50px;
+  padding: 20px 20px 50px 20px;
+  z-index: 999;
+  height: 33rem;
 `;
 export const RightSection = styled.div`
   flex: 1;
@@ -96,6 +108,7 @@ export const Form = styled.form`
 export const Label = styled.label`
   margin-bottom: 10px;
   font-weight: 500;
+  color: #fdf0e4;
 `;
 export const Input = styled.input`
   margin-bottom: 10px;
@@ -163,6 +176,7 @@ export const CheckboxInput = styled.input.attrs({ type: "checkbox" })`
 `;
 export const CheckboxText = styled.span`
   font-weight: medium;
+  color: #fff;
 `;
 export const SignupButton = styled.button`
   width: 70%;
@@ -254,11 +268,47 @@ export const OrText = styled.span`
 `;
 
 export const StyledLink = styled.div`
-  color: blue;
+  color: #c70039;
   transition: transform 0.3s ease, background-color 0.3s ease;
   font-weight: bold;
 
   &:hover {
     font-style: italic;
   }
+`;
+
+export const Background = styled.div`
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../../../Assets/Images/signup2.jpg");
+  background-size: cover;
+  background-position: center;
+`;
+
+export const Overlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Add a semi-transparent overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const FormContainer = styled.div`
+  background: rgba(255, 255, 255, 0.9); /* Make the form slightly transparent */
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+`;
+
+export const BackgroundImage = styled(Image)`
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 `;
