@@ -126,7 +126,7 @@ const Signup: React.FC = () => {
                 width={30}
                 height={30}
               />
-              &nbsp; SignIn with google
+              &nbsp; Sign in with google
             </Styled.GoogleButton>
 
             <Styled.GoogleButton>
@@ -136,7 +136,7 @@ const Signup: React.FC = () => {
                 height={40}
                 width={70}
               />
-              SignIn with apple
+              Sign in with apple
             </Styled.GoogleButton>
           </div>
 

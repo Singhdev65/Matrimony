@@ -1,62 +1,36 @@
-// "use client";
-// import { signIn, signOut, useSession } from "next-auth/react";
-
-// export default function Component() {
-//   const { data: session } = useSession();
-//   if (session) {
-//     return (
-//       <>
-//         <p>Signed in as {session.user.email}</p>
-//         <button onClick={() => signOut()}>Signout</button>
-//       </>
-//     );
-//   }
-//   return (
-//     <>
-//       Not signed In
-//       <button onClick={() => signIn()}>signIn</button>
-//       <button
-//         onClick={() =>
-//           signIn("google", { callbackUrl: "http://localhost:3000/dashboard" })
-//         }
-//       >
-//         signIn with google
-//       </button>
-//     </>
-//   );
-// }
-
-
-
-
-
-
-
 "use client";
 import { signIn, signOut, useSession } from "next-auth/react";
+import * as Styled from "./styles";
+import React, { useState } from "react";
 
-export default function Component() {
-  const { data: session } = useSession();
-  if (session) {
-    return (
-      <>
-        <p>Signed in as {session.user.email}</p>
-        <button onClick={() => signOut()}>Signout</button>
-      </>
-    );
-  }
+const Login = () => {
+  const [activeTab, setActiveTab] = useState("Phone");
+
   return (
-    <>
-      Not signed In
-      <button onClick={() => signIn()}>signIn</button>
-      <button
-        onClick={() =>
-          signIn("google", { callbackUrl: "http://localhost:3000/dashboard" })
-        }
-      >
-        signIn with google
-      </button>
-    </>
+    <Styled.Card>
+      <Styled.LeftSection>Image</Styled.LeftSection>
+      <Styled.RightSection>
+        <Styled.LoginTabs>
+          <Styled.Tab
+            className={activeTab === "Phone" ? "active" : ""}
+            onClick={() => setActiveTab("Phone")}
+          >
+            Login with Phone
+          </Styled.Tab>
+          <Styled.Tab
+            className={activeTab === "Email" ? "active" : ""}
+            onClick={() => setActiveTab("Email")}
+          >
+            Login with Email
+          </Styled.Tab>
+        </Styled.LoginTabs>
+        <Styled.TabContent>
+          {activeTab === "Phone" && <div>Login with Phone Number</div>}
+          {activeTab === "Email" && <div>Login with Email</div>}
+        </Styled.TabContent>
+      </Styled.RightSection>
+    </Styled.Card>
   );
-}
+};
 
+export default Login;
