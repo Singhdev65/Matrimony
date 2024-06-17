@@ -30,122 +30,125 @@ export interface User extends Document {
   occupation: object;
 }
 
-const UserSchema: Schema<User> = new Schema({
-  username: {
-    type: String,
-    trim: true,
-    unique: true,
+const UserSchema: Schema<User> = new Schema(
+  {
+    username: {
+      type: String,
+      trim: true,
+      unique: true,
+    },
+    fname: {
+      type: String,
+      required: [true, "First Name is required"],
+    },
+    lname: {
+      type: String,
+    },
+    dob: {
+      type: String,
+    },
+    city: {
+      type: String,
+    },
+    state: {
+      type: String,
+    },
+    country: {
+      type: String,
+    },
+    caste: {
+      type: String,
+    },
+    religion: {
+      type: String,
+    },
+    foodHabit: {
+      type: String,
+    },
+    noOfSiblings: {
+      type: Number,
+    },
+    siblingsDescription: {
+      type: String,
+    },
+    email: {
+      type: String,
+      required: [true, "Email is required"],
+      unique: true,
+      match: [
+        /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g,
+        "Please use a valid email address",
+      ],
+    },
+    phone: {
+      type: String,
+      trim: true,
+    },
+    password: {
+      type: String,
+    },
+    verifyCode: {
+      type: String,
+    },
+    verifyCodeExpiry: {
+      type: Date,
+    },
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
+    smoke: {
+      type: Boolean,
+      default: false,
+    },
+    drink: {
+      type: Boolean,
+      default: false,
+    },
+    motherTongue: {
+      type: String,
+    },
+    maritalStatus: {
+      type: String,
+      enum: [
+        "Never married",
+        "Widowed",
+        "Widower",
+        "Divorced",
+        "Awaiting divorce",
+      ],
+    },
+    children: {
+      type: String,
+      enum: ["Yes", "No", "Not Applicable"],
+    },
+    familyType: {
+      type: String,
+      enum: ["Nuclear", "joint"],
+    },
+    familyStatus: {
+      type: String,
+      enum: [
+        "middle class",
+        "upper middle class",
+        "lower middle class",
+        "Affluent",
+        "Rich",
+      ],
+    },
+    occupation: {
+      type: String,
+      enum: [
+        "Govt",
+        "Private",
+        "Business",
+        "Self Employed",
+        "Home maker / Not Working",
+      ],
+    },
   },
-  fname: {
-    type: String,
-    required: [true, "First Name is required"],
-  },
-  lname: {
-    type: String,
-  },
-  dob: {
-    type: String,
-  },
-  city: {
-    type: String,
-  },
-  state: {
-    type: String,
-  },
-  country: {
-    type: String,
-  },
-  caste: {
-    type: String,
-  },
-  religion: {
-    type: String,
-  },
-  foodHabit: {
-    type: String,
-  },
-  noOfSiblings: {
-    type: Number,
-  },
-  siblingsDescription: {
-    type: String,
-  },
-  email: {
-    type: String,
-    required: [true, "Email is required"],
-    unique: true,
-    match: [
-      /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g,
-      "Please use a valid email address",
-    ],
-  },
-  phone: {
-    type: String,
-    trim: true,
-  },
-  password: {
-    type: String,
-  },
-  verifyCode: {
-    type: String,
-  },
-  verifyCodeExpiry: {
-    type: Date,
-  },
-  isVerified: {
-    type: Boolean,
-    default: false,
-  },
-  smoke: {
-    type: Boolean,
-    default: false,
-  },
-  drink: {
-    type: Boolean,
-    default: false,
-  },
-  motherTongue: {
-    type: String,
-  },
-  maritalStatus: {
-    type: String,
-    enum: [
-      "Never married",
-      "Widowed",
-      "Widower",
-      "Divorced",
-      "Awaiting divorce",
-    ],
-  },
-  children: {
-    type: String,
-    enum: ["Yes", "No", "Not Applicable"],
-  },
-  familyType: {
-    type: String,
-    enum: ["Nuclear", "joint"],
-  },
-  familyStatus: {
-    type: String,
-    enum: [
-      "middle class",
-      "upper middle class",
-      "lower middle class",
-      "Affluent",
-      "Rich",
-    ],
-  },
-  occupation: {
-    type: String,
-    enum: [
-      "Govt",
-      "Private",
-      "Business",
-      "Self Employed",
-      "Home maker / Not Working",
-    ],
-  },
-});
+  { timestamps: true }
+);
 
 const UserModel =
   (mongoose.models.User as mongoose.Model<User>) ||
