@@ -5,14 +5,6 @@ import bcrypt from "bcryptjs";
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/user.model";
 
-interface UserProfile {
-  given_name: string;
-  family_name: string;
-  iat: string;
-  email: string;
-  email_verified: string;
-}
-
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
@@ -29,6 +21,7 @@ export const authOptions: NextAuthOptions = {
             $or: [
               { email: credentials.identifier },
               { username: credentials.identifier },
+              { phone: credentials.identifier },
             ],
           });
           if (!user) {
