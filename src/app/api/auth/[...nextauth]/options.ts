@@ -5,6 +5,14 @@ import bcrypt from "bcryptjs";
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/user.model";
 
+interface UserProfile {
+  given_name: string;
+  family_name: string;
+  iat: string;
+  email: string;
+  email_verified: string;
+}
+
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
@@ -67,7 +75,9 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
-    async signIn({ profile }) {
+    async signIn(params) {
+      const { profile } = params;
+
       try {
         await dbConnect();
         const existingUserVerifiedByEmail = await UserModel.findOne({
@@ -76,11 +86,11 @@ export const authOptions: NextAuthOptions = {
 
         if (!existingUserVerifiedByEmail) {
           const newUser = new UserModel({
-            fname: profile.given_name,
-            lname: profile.family_name,
-            username: profile.given_name + profile.iat,
+            fname: profile?.given_name ?? "",
+            lname: profile?.family_name ?? "",
+            username: (profile?.given_name ?? "") + (profile?.iat ?? ""),
             email: profile?.email,
-            isVerified: profile?.email_verified,
+            isVerified: profile?.email_verified ?? false,
           });
 
           await newUser.save();

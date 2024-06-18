@@ -6,7 +6,7 @@ export interface User extends Document {
   username: string;
   dob: String;
   password: string;
-  verifyCode: string;
+  verifyCode: string | undefined;
   verifyCodeExpiry: Date;
   email: string;
   phone: string;
