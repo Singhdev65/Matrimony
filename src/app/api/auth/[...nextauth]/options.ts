@@ -18,31 +18,19 @@ export const authOptions: NextAuthOptions = {
         await dbConnect();
         try {
           const user = await UserModel.findOne({
-            $or: [
-              { email: credentials.identifier },
-              { username: credentials.identifier },
-              { phone: credentials.identifier },
-            ],
+            email: credentials.identifier,
           });
-          if (!user) {
-            throw new Error("No User found with this credential");
+          if (user) {
+            const isPasswordCorrect = await bcrypt.compare(
+              credentials.password,
+              user.password
+            );
+            if (isPasswordCorrect) {
+              return user;
+            }
           }
-          if (!user.isVerified) {
-            throw new Error("Please verify your account before login");
-          }
-
-          const isPasswordCorrect = await bcrypt.compare(
-            credentials.password,
-            user.password
-          );
-
-          if (isPasswordCorrect) {
-            return user;
-          } else {
-            throw new Error("Incorrect password");
-          }
-        } catch (error: any) {
-          throw new Error(error);
+        } catch (err: any) {
+          throw new Error(err);
         }
       },
     }),
@@ -66,35 +54,34 @@ export const authOptions: NextAuthOptions = {
         session.user._id = token._id;
         session.user.isVerified = token.isVerified;
         session.user.username = token.username;
-        token.role = token.role;
+        session.user.role = token.role;
       }
       return session;
     },
-    async signIn(params) {
-      const { profile } = params;
-
-      try {
-        await dbConnect();
-        const existingUserVerifiedByEmail = await UserModel.findOne({
-          email: profile?.email,
-        });
-
-        if (!existingUserVerifiedByEmail) {
-          const newUser = new UserModel({
-            fname: profile?.given_name ?? "",
-            lname: profile?.family_name ?? "",
-            username: (profile?.given_name ?? "") + (profile?.iat ?? ""),
-            email: profile?.email,
-            isVerified: profile?.email_verified ?? false,
-            role: "User",
-          });
-
-          await newUser.save();
-        }
-
+    async signIn({ user, account }) {
+      if (account?.provider == "credentials") {
         return true;
-      } catch (error) {
-        return false;
+      }
+
+      if (account?.provider == "google") {
+        await dbConnect();
+        try {
+          const existingUser = await UserModel.findOne({ email: user.email });
+          if (!existingUser) {
+            const newUser = new UserModel({
+              email: user.email,
+              isGoogleLogin: true,
+              role: "User",
+            });
+
+            await newUser.save();
+            return true;
+          }
+          return true;
+        } catch (err) {
+          console.log("Error saving user", err);
+          return false;
+        }
       }
     },
   },

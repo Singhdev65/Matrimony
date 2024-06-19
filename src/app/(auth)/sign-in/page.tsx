@@ -1,106 +1,95 @@
 "use client";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { signInSchema } from "@/schemas/loginSchema";
+import { signIn } from "next-auth/react";
 import * as Styled from "./styles";
-import React, { useState } from "react";
-import Image from "next/image";
-import SignupImage from "../../../Assets/Images/signup5.jpg";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
-  const [activeTab, setActiveTab] = useState("Phone");
+  const router = useRouter();
 
-  const emailInput = [
-    {
-      id: 0,
-      placeholder: "Enter email",
-      type: "email",
+  const form = useForm<z.infer<typeof signInSchema>>({
+    resolver: zodResolver(signInSchema),
+    defaultValues: {
+      identifier: "",
+      password: "",
     },
-    {
-      id: 1,
-      placeholder: "Enter password",
-      type: "password",
-    },
-  ];
+    mode: "onBlur",
+    reValidateMode: "onChange",
+  });
+
+  const onSubmit = async (data: z.infer<typeof signInSchema>) => {
+    try {
+      const result = await signIn("credentials", {
+        redirect: false,
+        identifier: data.identifier,
+        password: data.password,
+      });
+
+      if (result?.url) {
+        router.replace("/dashboard");
+      } else if (result?.error === "CredentialsSignin") {
+        console.log("Incorrect username or password");
+      } else {
+        console.error("Sign in failed:", result?.error ?? "Unknown error");
+      }
+    } catch (error) {
+      console.error("Error during sign in:", error);
+    }
+  };
 
   return (
-    <Styled.Background>
-      <Image
-        src={SignupImage}
-        alt="Signup Image"
-        layout="fill"
-        objectFit="cover"
-        style={{
-          zIndex: -1,
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-        }}
-      />
-      <Styled.Card>
-        <Styled.LeftSection>Welcome</Styled.LeftSection>
+    <Styled.WrapperContainer>
+      <Styled.Wrapper>
+        <Styled.LeftSection>{/* CAROUSEL */}</Styled.LeftSection>
         <Styled.RightSection>
-          <h1>Login?</h1>
-          <h5>New User? Register for free</h5>
-          <Styled.LoginOptions>
-            <Styled.RadioButton>
-              <input
-                type="radio"
-                id="phone"
-                name="loginMethod"
-                value="Phone"
-                checked={activeTab === "Phone"}
-                onChange={() => setActiveTab("Phone")}
+          {/* LOGIN FORM */}
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <Styled.FormGroup>
+              <Styled.Label htmlFor="identifier">Username/Email</Styled.Label>
+              <Styled.Input
+                id="identifier"
+                {...form.register("identifier")}
+                onBlur={() => form.trigger("identifier")}
+                onChange={() => form.trigger("identifier")}
+                required
               />
-              <label htmlFor="phone">Login with Phone</label>
-            </Styled.RadioButton>
-            <Styled.RadioButton>
-              <input
-                type="radio"
-                id="email"
-                name="loginMethod"
-                value="Email"
-                checked={activeTab === "Email"}
-                onChange={() => setActiveTab("Email")}
+              {form.formState.errors.identifier && (
+                <Styled.Error>
+                  {form.formState.errors.identifier.message}
+                </Styled.Error>
+              )}
+            </Styled.FormGroup>
+
+            <Styled.FormGroup>
+              <Styled.Label htmlFor="password">Password</Styled.Label>
+              <Styled.Input
+                id="password"
+                type="password"
+                {...form.register("password")}
+                onBlur={() => form.trigger("password")}
+                onChange={() => form.trigger("password")}
+                required
               />
-              <label htmlFor="email">Login with Email</label>
-            </Styled.RadioButton>
-          </Styled.LoginOptions>
-          <Styled.TabContent>
-            {activeTab === "Phone" && (
-              <div>
-                <Styled.Input
-                  type="text"
-                  id="phoneInput"
-                  name="phone"
-                  placeholder="Enter your phone number"
-                />
-              </div>
-            )}
-            {activeTab === "Email" && (
-              <Styled.EmailContainer>
-                {emailInput?.map((item, index) => {
-                  return (
-                    <Styled.Input
-                      type="text"
-                      key={index}
-                      value={item?.placeholder}
-                    />
-                  );
-                })}
-                <Styled.ForgotPassword>Forgot password?</Styled.ForgotPassword>
-              </Styled.EmailContainer>
-            )}
-          </Styled.TabContent>
-          <br />
-          <Styled.LoginButtonWrapper>
-            <Styled.SignupButton>
-              {activeTab === "Phone" ? "Generate OTP" : "Login Now"}
-            </Styled.SignupButton>
-          </Styled.LoginButtonWrapper>
+              {form.formState.errors.password && (
+                <Styled.Error>
+                  {form.formState.errors.password.message}
+                </Styled.Error>
+              )}
+            </Styled.FormGroup>
+            <button type="submit">Sign In</button>
+          </form>
+          <div className="text-center mt-4">
+            <p>
+              Not a member yet? <Link href="/sign-up">Sign up</Link>
+            </p>
+          </div>
         </Styled.RightSection>
-      </Styled.Card>
-    </Styled.Background>
+      </Styled.Wrapper>
+    </Styled.WrapperContainer>
   );
 };
 
