@@ -17,8 +17,6 @@ const Login = () => {
       identifier: "",
       password: "",
     },
-    mode: "onBlur",
-    reValidateMode: "onChange",
   });
 
   const onSubmit = async (data: z.infer<typeof signInSchema>) => {
@@ -50,13 +48,7 @@ const Login = () => {
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <Styled.FormGroup>
               <Styled.Label htmlFor="identifier">Username/Email</Styled.Label>
-              <Styled.Input
-                id="identifier"
-                {...form.register("identifier")}
-                onBlur={() => form.trigger("identifier")}
-                onChange={() => form.trigger("identifier")}
-                required
-              />
+              <Styled.Input id="identifier" {...form.register("identifier")} />
               {form.formState.errors.identifier && (
                 <Styled.Error>
                   {form.formState.errors.identifier.message}
@@ -70,9 +62,6 @@ const Login = () => {
                 id="password"
                 type="password"
                 {...form.register("password")}
-                onBlur={() => form.trigger("password")}
-                onChange={() => form.trigger("password")}
-                required
               />
               {form.formState.errors.password && (
                 <Styled.Error>
@@ -80,8 +69,10 @@ const Login = () => {
                 </Styled.Error>
               )}
             </Styled.FormGroup>
+
             <button type="submit">Sign In</button>
           </form>
+
           <div className="text-center mt-4">
             <p>
               Not a member yet? <Link href="/sign-up">Sign up</Link>
