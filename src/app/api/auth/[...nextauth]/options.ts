@@ -4,6 +4,8 @@ import GoogleProvider from "next-auth/providers/google";
 import bcrypt from "bcryptjs";
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/user.model";
+import RolesModel from "@/model/role.model";
+import UserRolesModel from "@/model/userRoles.model";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -71,8 +73,16 @@ export const authOptions: NextAuthOptions = {
             const newUser = new UserModel({
               email: user.email,
               isGoogleLogin: true,
-              role: "User",
             });
+
+            const defaultRole = await RolesModel.findOne({ is_default: 2 });
+
+            const userPermission = new UserRolesModel({
+              user_id: newUser._id,
+              user_role: defaultRole?._id,
+            });
+
+            await userPermission.save();
 
             await newUser.save();
             return true;

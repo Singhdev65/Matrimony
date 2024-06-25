@@ -75,8 +75,8 @@ export async function POST(request: Request) {
         user_role: defaultRole?._id,
       });
 
-      await userPermission.save();
       await newUser.save();
+      await userPermission.save();
     }
 
     // send verification email
