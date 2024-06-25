@@ -21,6 +21,7 @@ export interface User extends Document {
   siblingsDescription: string;
   smoke: boolean;
   drink: boolean;
+  isGoogleLogin: boolean;
   foodHabit: string;
   motherTongue: string;
   languageKnown: object;
@@ -40,7 +41,6 @@ const UserSchema: Schema<User> = new Schema(
     },
     fname: {
       type: String,
-      required: [true, "First Name is required"],
     },
     lname: {
       type: String,
@@ -146,6 +146,15 @@ const UserSchema: Schema<User> = new Schema(
         "Self Employed",
         "Home maker / Not Working",
       ],
+    },
+    role: {
+      type: String,
+      enum: ["Admin", "User", "Guest"],
+      default: "Guest",
+    },
+    isGoogleLogin: {
+      type: Boolean,
+      default: false,
     },
   },
   { timestamps: true }

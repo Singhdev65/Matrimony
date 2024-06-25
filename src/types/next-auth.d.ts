@@ -22,6 +22,6 @@ declare module "next-auth" {
     _id?: string;
     isVerified?: boolean;
     username?: string;
-    role? = string;
+    role?: string;
   }
 }
