@@ -8,6 +8,8 @@ export const config = {
 
 export async function middleware(request: NextRequest) {
   const token = await getToken({ req: request });
+
+  console.log(token, "TOKEN")
   const url = request.nextUrl;
 
   if (

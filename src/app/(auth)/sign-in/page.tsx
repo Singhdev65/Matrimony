@@ -72,7 +72,9 @@ const Login = () => {
 
             <button type="submit">Sign In</button>
           </form>
-
+          <button type="submit" onClick={() => signIn("google")}>
+            Google
+          </button>
           <div className="text-center mt-4">
             <p>
               Not a member yet? <Link href="/sign-up">Sign up</Link>

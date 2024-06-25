@@ -105,35 +105,38 @@ const HeroText = styled.div`
 
 const Compoenent = () => {
   return (
-    <HeaderContainer>
-      <InfoSection>
-        <InfoItem>+91 9876543210</InfoItem>
-        <InfoItem>info@mailinator.com</InfoItem>
-      </InfoSection>
-      <Navigation>
-        <Logo>Raste ka maal Fix</Logo>
-        <Menu>
-          <MenuItem href="#">Home</MenuItem>
-          <MenuItem href="#">About us</MenuItem>
-          <MenuItem href="#">Services</MenuItem>
-          <MenuItem href="#">Stats</MenuItem>
-          <MenuItem href="#">Testimonials</MenuItem>
-          <MenuItem href="/sign-up">Signup</MenuItem>
-        </Menu>
-      </Navigation>
-      <HeroText>
-        <h1>Matrimonial.</h1>
-        <h2>
-          Best Matching <span>Couples</span>
-        </h2>
-        <p>
-          Raste ka maal saste main, jaldi aao jldi aao. Raste ka maal saste
-          main, jaldi aao jldi aao.jaldi jldi aao
-        </p>
-        <br />
-        <a href="#">Read more</a>
-      </HeroText>
-    </HeaderContainer>
+    <>
+      <HeaderContainer>
+        <InfoSection>
+          <InfoItem>+91 9876543210</InfoItem>
+          <InfoItem>info@mailinator.com</InfoItem>
+        </InfoSection>
+        <Navigation>
+          <Logo>Lorem ipsum dolor sit amet</Logo>
+          <Menu>
+            <MenuItem href="#">Home</MenuItem>
+            <MenuItem href="#">About us</MenuItem>
+            <MenuItem href="#">Services</MenuItem>
+            <MenuItem href="#">Stats</MenuItem>
+            <MenuItem href="#">Testimonials</MenuItem>
+            <MenuItem href="/sign-up">Signup</MenuItem>
+          </Menu>
+        </Navigation>
+        <HeroText>
+          <h1>Matrimonial.</h1>
+          <h2>
+            Best Matching <span>Couples</span>
+          </h2>
+          <p>
+            consectetur adipiscing elit. In non placerat mauris. Sed luctus,
+            sapien in euismod auctor, ligula augue mollis nunc, vitae accumsan
+            urna velit vehicula magna
+          </p>
+          <br />
+          <a href="#">Read more</a>
+        </HeroText>
+      </HeaderContainer>
+    </>
   );
 };
 
