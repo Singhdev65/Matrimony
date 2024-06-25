@@ -15,7 +15,7 @@ export interface User extends Document {
   country: string;
   religion: string;
   caste: string;
-  role: string;
+
   isVerified: boolean;
   noOfSiblings: number;
   siblingsDescription: string;
@@ -146,11 +146,6 @@ const UserSchema: Schema<User> = new Schema(
         "Self Employed",
         "Home maker / Not Working",
       ],
-    },
-    role: {
-      type: String,
-      enum: ["Admin", "User", "Guest"],
-      default: "Guest",
     },
   },
   { timestamps: true }
