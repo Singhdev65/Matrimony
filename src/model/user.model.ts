@@ -15,7 +15,7 @@ export interface User extends Document {
   country: string;
   religion: string;
   caste: string;
-  role: string;
+
   isVerified: boolean;
   noOfSiblings: number;
   siblingsDescription: string;
