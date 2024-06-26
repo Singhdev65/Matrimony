@@ -6,7 +6,7 @@ import Image from "next/image";
 import SignupImage from "../../../Assets/Images/signup5.jpg";
 
 const Login = () => {
-  const [activeTab, setActiveTab] = useState("Phone");
+  const [activeTab, setActiveTab] = useState<string>("phone");
 
   const emailInput = [
     {
