@@ -1,7 +1,7 @@
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/user.model";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "../auth/[...nextauth]/options";
+import { authOptions } from "../../auth/[...nextauth]/options";
 import { User } from "next-auth";
 
 export async function PATCH(request: Request) {

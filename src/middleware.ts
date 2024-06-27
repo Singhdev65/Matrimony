@@ -8,10 +8,23 @@ export const config = {
 
 export async function middleware(request: NextRequest) {
   const token = await getToken({ req: request });
+
+  console.log(token, "TOKEN")
   const url = request.nextUrl;
 
-  // Redirect to dashboard if the user is already authenticated
-  // and trying to access sign-in, sign-up, or home page
+
+
+//   const token = await getToken({
+//     req: request,
+//     secret: process.env.NEXT_AUTH_SECRET,
+//   });
+
+//   console.log(token, "token");
+// def79193118f42c8cc6a3c2d3cf8b9f41b3fb577
+//   const url = request.nextUrl;
+
+
+
   if (
     token &&
     (url.pathname.startsWith("/sign-in") ||

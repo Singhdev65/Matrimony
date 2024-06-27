@@ -33,7 +33,7 @@ export const Label = styled.label`
   gap: 10px;
 `;
 
-export const ErrorWrap = styled.p`
+export const Error = styled.p`
   color: red;
   margin: 0;
 `;

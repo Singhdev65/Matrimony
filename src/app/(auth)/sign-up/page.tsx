@@ -8,8 +8,12 @@ import GoogleLogo from "../../../Assets/Images/googleLogo.png";
 import AppleLogo from "../../../Assets/Images/appleLogo.png";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import { signUpValidation } from "@/schemas/signupSchema";
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 type FormData = {
+  userName: string;
   email: string;
   number: string;
   firstName: string;
@@ -20,11 +24,16 @@ type FormData = {
 };
 
 const Signup: React.FC = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>();
+  const form = useForm<z.infer<typeof signUpValidation>>({
+    resolver: zodResolver(signUpValidation),
+    defaultValues: {
+      userName: "",
+      email: "",
+      firstName: "",
+      lastName: "",
+      agree: false,
+    },
+  });
 
   const onSubmit = (data: FormData) => {
     console.log(data);
@@ -175,67 +184,73 @@ const Signup: React.FC = () => {
         </Styled.LeftSection>
       </Styled.SignupContainer> */}
 
-      <Styled.Form onSubmit={handleSubmit(onSubmit)}>
+      <Styled.Form onSubmit={form.handleSubmit(onSubmit)}>
         <Styled.Input
-          {...register("email", { required: true })}
+          {...form.register("userName", { required: true })}
+          placeholder="User Name"
+        />
+        {form.formState.errors.userName && (
+          <Styled.Error>{form.formState.errors.userName.message}</Styled.Error>
+        )}
+        <Styled.Input
+          {...form.register("email", { required: true })}
           placeholder="Email"
         />
-        {errors.email && (
-          <Styled.ErrorWrap>This field is required</Styled.ErrorWrap>
+        {form.formState.errors.email && (
+          <Styled.Error>{form.formState.errors.email.message}</Styled.Error>
         )}
 
         <Styled.Input
-          {...register("number", { required: true })}
+          {...form.register("number", { required: true })}
           placeholder="Number"
         />
-        {errors.number && (
-          <Styled.ErrorWrap>This field is required</Styled.ErrorWrap>
+        {form.formState.errors.number && (
+          <Styled.Error>{form.formState.errors.number.message}</Styled.Error>
         )}
 
         <Styled.Input
-          {...register("firstName", { required: true })}
+          {...form.register("firstName", { required: true })}
           placeholder="First Name"
         />
-        {errors.firstName && (
-          <Styled.ErrorWrap>This field is required</Styled.ErrorWrap>
+        {form.formState.errors.firstName && (
+          <Styled.Error>{form.formState.errors.firstName.message}</Styled.Error>
         )}
 
         <Styled.Input
-          {...register("lastName", { required: true })}
+          {...form.register("lastName", { required: true })}
           placeholder="Last Name"
         />
-        {errors.lastName && (
-          <Styled.ErrorWrap>This field is required</Styled.ErrorWrap>
+        {form.formState.errors.lastName && (
+          <Styled.Error>{form.formState.errors.lastName.message}</Styled.Error>
         )}
 
         <Styled.Input
-          {...register("age", { required: true })}
+          {...form.register("age", { required: true })}
           placeholder="Age"
         />
-        {errors.age && (
-          <Styled.ErrorWrap>This field is required</Styled.ErrorWrap>
+        {form.formState.errors.age && (
+          <Styled.Error>{form.formState.errors.age.message}</Styled.Error>
         )}
 
-        <Styled.Select {...register("gender", { required: true })}>
+        <Styled.Select {...form.register("gender", { required: true })}>
           <option value="">Select...</option>
           <option value="male">Male</option>
           <option value="female">Female</option>
         </Styled.Select>
-        {errors.gender && (
-          <Styled.ErrorWrap>This field is required</Styled.ErrorWrap>
+        {form.formState.errors.gender && (
+          <Styled.Error>{form.formState.errors.gender.message}</Styled.Error>
         )}
 
         <Styled.Label>
           <Styled.Input
             type="checkbox"
-            {...register("agree", { required: true })}
+            {...form.register("agree", { required: true })}
           />
           I agree to the terms and conditions
         </Styled.Label>
-        {errors.agree && (
-          <Styled.ErrorWrap>You must agree before submitting.</Styled.ErrorWrap>
+        {form.formState.errors.agree && (
+          <Styled.Error>{form.formState.errors.agree.message}</Styled.Error>
         )}
-
         <input type="submit" />
       </Styled.Form>
     </>

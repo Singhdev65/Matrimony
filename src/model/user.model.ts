@@ -1,13 +1,15 @@
 import mongoose, { Schema, Document } from "mongoose";
+import { Lifestyle } from "./lifeStyle.model";
+import { UserRole } from "./userRoles.model";
 
 export interface User extends Document {
   fname: string;
   lname: string;
   username: string;
-  dob: String;
+  dob: string;
   password: string;
   verifyCode: string | undefined;
-  verifyCodeExpiry: Date;
+  verifyCodeExpiry: any;
   email: string;
   phone: string;
   city: string;
@@ -18,140 +20,83 @@ export interface User extends Document {
   isVerified: boolean;
   noOfSiblings: number;
   siblingsDescription: string;
-  smoke: boolean;
-  drink: boolean;
-  foodHabit: string;
-  motherTongue: string;
-  languageKnown: object;
-  maritalStatus: object;
-  children: object;
-  familyType: object;
-  familyStatus: object;
-  occupation: object;
+  isGoogleLogin: boolean;
+  maritalStatus: string;
+  children: string;
+  familyType: string;
+  familyStatus: string;
+  occupation: string;
+  preferences: mongoose.Types.ObjectId;
+  lifestyle: Lifestyle["_id"];
+  roles: UserRole["_id"][];
 }
 
-const UserSchema: Schema<User> = new Schema(
-  {
-    username: {
-      type: String,
-      trim: true,
-      unique: true,
-    },
-    fname: {
-      type: String,
-      required: [true, "First Name is required"],
-    },
-    lname: {
-      type: String,
-    },
-    dob: {
-      type: String,
-    },
-    city: {
-      type: String,
-    },
-    state: {
-      type: String,
-    },
-    country: {
-      type: String,
-    },
-    caste: {
-      type: String,
-    },
-    religion: {
-      type: String,
-    },
-    foodHabit: {
-      type: String,
-    },
-    noOfSiblings: {
-      type: Number,
-    },
-    siblingsDescription: {
-      type: String,
-    },
-    email: {
-      type: String,
-      required: [true, "Email is required"],
-      unique: true,
-      match: [
-        /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g,
-        "Please use a valid email address",
-      ],
-    },
-    phone: {
-      type: String,
-      trim: true,
-    },
-    password: {
-      type: String,
-    },
-    verifyCode: {
-      type: String,
-    },
-    verifyCodeExpiry: {
-      type: Date,
-    },
-    isVerified: {
-      type: Boolean,
-      default: false,
-    },
-    smoke: {
-      type: Boolean,
-      default: false,
-    },
-    drink: {
-      type: Boolean,
-      default: false,
-    },
-    motherTongue: {
-      type: String,
-    },
-    maritalStatus: {
-      type: String,
-      enum: [
-        "Never married",
-        "Widowed",
-        "Widower",
-        "Divorced",
-        "Awaiting divorce",
-      ],
-    },
-    children: {
-      type: String,
-      enum: ["Yes", "No", "Not Applicable"],
-    },
-    familyType: {
-      type: String,
-      enum: ["Nuclear", "joint"],
-    },
-    familyStatus: {
-      type: String,
-      enum: [
-        "middle class",
-        "upper middle class",
-        "lower middle class",
-        "Affluent",
-        "Rich",
-      ],
-    },
-    occupation: {
-      type: String,
-      enum: [
-        "Govt",
-        "Private",
-        "Business",
-        "Self Employed",
-        "Home maker / Not Working",
-      ],
-    },
+const UserSchema: Schema = new Schema({
+  fname: { type: String },
+  lname: { type: String },
+  username: { type: String, trim: true, unique: true },
+  dob: { type: String },
+  password: { type: String },
+  verifyCode: { type: String },
+  verifyCodeExpiry: { type: Date },
+  email: { type: String, required: true, unique: true },
+  phone: { type: String, trim: true },
+  city: { type: String },
+  state: { type: String },
+  country: { type: String },
+  religion: { type: String },
+  caste: { type: String },
+  isVerified: { type: Boolean, default: false },
+  noOfSiblings: { type: Number },
+  siblingsDescription: { type: String },
+  isGoogleLogin: { type: Boolean, default: false },
+  maritalStatus: {
+    type: String,
+    enum: [
+      "Never married",
+      "Widowed",
+      "Widower",
+      "Divorced",
+      "Awaiting divorce",
+    ],
   },
-  { timestamps: true }
-);
+  children: { type: String, enum: ["Yes", "No", "Not Applicable"] },
+  familyType: { type: String, enum: ["Nuclear", "joint"] },
+  familyStatus: {
+    type: String,
+    enum: [
+      "middle class",
+      "upper middle class",
+      "lower middle class",
+      "Affluent",
+      "Rich",
+    ],
+  },
+  occupation: {
+    type: String,
+    enum: [
+      "Govt",
+      "Private",
+      "Business",
+      "Self Employed",
+      "Home maker / Not Working",
+    ],
+  },
+  preferences: { type: mongoose.Types.ObjectId, ref: "Preferences" },
+  lifestyle: { type: mongoose.Types.ObjectId, ref: "Lifestyle" },
+  roles: [{ type: mongoose.Types.ObjectId, ref: "UserRole" }],
+});
 
-const UserModel =
-  (mongoose.models.User as mongoose.Model<User>) ||
-  mongoose.model<User>("User", UserSchema);
+UserSchema.virtual("userRoles", {
+  ref: "UserRole",
+  localField: "_id",
+  foreignField: "user_id",
+  justOne: false,
+  options: { match: { status: "Active" } },
+});
+
+UserSchema.set("toJSON", { virtuals: true });
+
+const UserModel = mongoose.model<User>("User", UserSchema);
 
 export default UserModel;
