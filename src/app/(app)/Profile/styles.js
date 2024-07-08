@@ -118,3 +118,7 @@ export const GeneralDetailContainer = styled.div`
 //   max-width: 100px;
 //   margin-left: 50px;
 // `
+
+export const CardWrapper = styled.div`
+ height: 100vh
+`;
