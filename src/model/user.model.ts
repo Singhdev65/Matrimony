@@ -97,6 +97,8 @@ UserSchema.virtual("userRoles", {
 
 UserSchema.set("toJSON", { virtuals: true });
 
-const UserModel = mongoose.model<User>("User", UserSchema);
+// const UserModel = mongoose.model<User>("User", UserSchema);
+const UserModel = mongoose.models.User || mongoose.model<User>("User", UserSchema);
+
 
 export default UserModel;
