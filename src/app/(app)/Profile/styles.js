@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Link from "next/link";
 
 export const CustomTabs = styled.div`
   display: flex;
@@ -37,7 +38,9 @@ export const ProfileContent = styled.div`
   overflow: auto;
 `;
 
-export const ProfileFormContainer = styled.div``;
+export const ProfileFormContainer = styled.div`
+  width: 100%;
+`;
 
 export const ProfileDetailContainer = styled.div`
   padding: 2rem 2rem 2rem 1rem;
@@ -120,5 +123,69 @@ export const GeneralDetailContainer = styled.div`
 // `
 
 export const CardWrapper = styled.div`
- height: 100vh
+  height: 100vh;
+`;
+
+export const Section = styled.div`
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px;
+`;
+
+export const ImageItem = styled.div`
+  margin: 10px;
+  text-align: center;
+  cursor: pointer;
+`;
+
+export const Image = styled.img`
+  width: 100%;
+  height: auto;
+  border: 1px solid #ccc;
+  border-radius: 50px;
+`;
+
+export const Label = styled.div`
+  margin-top: 8px;
+  font-size: 14px;
+  color: #333;
+`;
+
+export const IMGContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const Categories = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const SingleCategory = styled.div`
+  border: 1px solid #ccc;
+  width: auto;
+  padding: 20px;
+  cursor: Pointer;
+`;
+
+export const SeeAllLink = styled.h6`
+  ${
+    "" /* position: absolute;
+  top: 20px;
+  right: 20px; */
+  }
+  font-size: 14px;
+  color: blue;
+  cursor: pointer;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+export const EditIconContainer = styled.div`
+  background: white;
+  border-radius: 50%;
+  padding: 2px;
 `;
