@@ -41,6 +41,41 @@ export default function Myprofile() {
     setImagePreview: (image: string | ArrayBuffer | null) => void;
   }
 
+  const [activeTab, setActiveTab] = useState<Tab>("basicDetails");
+  type Tab =
+    | "basicDetails"
+    | "personalDetails"
+    | "requests"
+    | "shortlists"
+    | "settings"
+    | "help"
+    | "aboutus";
+
+  interface TabItem {
+    value: Tab;
+    label: string;
+  }
+
+  const handleTabChange = (newValue: Tab) => {
+    setActiveTab(newValue);
+  };
+
+  const requestsTabs: TabItem[] = [
+    { label: "My Requests", value: "requests" },
+    { label: "My Shortlists", value: "shortlists" },
+  ];
+
+  const DetailsTabs: TabItem[] = [
+    { label: "Basic Details", value: "basicDetails" },
+    { label: "Personal Details", value: "personalDetails" },
+  ];
+
+  const settingsTabs: TabItem[] = [
+    { label: "Settings", value: "settings" },
+    { label: "Help & Support", value: "help" },
+    { label: "About Us", value: "aboutus" },
+  ];
+
   const formFields = [
     {
       id: 0,
@@ -194,6 +229,60 @@ export default function Myprofile() {
 
       <Card>
         <Styled.DrawerContainer>
+          <Styled.Drawer>
+            <Styled.GeneralDetailContainer>
+              {/* <h6>Plan & Chat</h6> */}
+              <Styled.CustomTabsContainer>
+                {DetailsTabs?.map((item, index) => {
+                  return (
+                    <Styled.CustomTab
+                      key={index}
+                      // active={activeTab === item.value}
+                      onClick={() => handleTabChange(item.value)}
+                    >
+                      {item.label}
+                    </Styled.CustomTab>
+                  );
+                })}
+              </Styled.CustomTabsContainer>
+            </Styled.GeneralDetailContainer>
+
+            <Divider />
+            <Styled.GeneralDetailContainer>
+              {/* <h6>Requests and Shortlists</h6> */}
+              <Styled.CustomTabsContainer>
+                {requestsTabs?.map((item, index) => {
+                  return (
+                    <Styled.CustomTab
+                      key={index}
+                      // active={activeTab === item.value}
+                      onClick={() => handleTabChange(item.value)}
+                    >
+                      {item.label}
+                    </Styled.CustomTab>
+                  );
+                })}
+              </Styled.CustomTabsContainer>
+            </Styled.GeneralDetailContainer>
+
+            <Divider />
+            <Styled.GeneralDetailContainer>
+              {/* <h6>Settings</h6> */}
+              <Styled.CustomTabsContainer>
+                {settingsTabs?.map((item, index) => {
+                  return (
+                    <Styled.CustomTab
+                      key={index}
+                      // active={activeTab === item.value}
+                      // onClick={() => handleTabChange(item.value)}
+                    >
+                      {item.label}
+                    </Styled.CustomTab>
+                  );
+                })}
+              </Styled.CustomTabsContainer>
+            </Styled.GeneralDetailContainer>
+          </Styled.Drawer>
           <Styled.ProfileContent>
             <Box component="main">
               <Card
@@ -222,168 +311,156 @@ export default function Myprofile() {
                 </div>
               </Card>
               <br />
-              {/* My matches */}
+              {/* Basic Details */}
+              {activeTab === "basicDetails" && (
+                <Card
+                  sx={{
+                    display: "flex",
+                    padding: "35px",
+                    position: "relative",
+                  }}
+                >
+                  <Styled.ProfileFormContainer>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <h2 style={{ marginBottom: "20px" }}>Basic Details</h2>
+                      <Styled.SeeAllLink>Gold Member</Styled.SeeAllLink>
+                    </div>
 
-              <Card
-                sx={{
-                  display: "flex",
-                  padding: "35px",
-                  position: "relative",
-                }}
-              >
-                <Styled.ProfileFormContainer>
-                  <div
-                    style={{ display: "flex", justifyContent: "space-between" }}
-                  >
-                    <h2 style={{ marginBottom: "20px" }}>Basic Details</h2>
-                    <Styled.SeeAllLink>Gold Member</Styled.SeeAllLink>
-                  </div>
-
-                  <>
-                    <Styled.Form>
-                      <Styled.FormWrapper>
-                        {formFields?.map((items, index) => {
-                          return (
-                            <React.Fragment key={index}>
-                              {items?.sections?.map((item, sectionIndex) => {
-                                item?.options?.unshift("Please Select");
-                                return (
-                                  <Grid key={sectionIndex}>
-                                    <Styled.Label>{item.label}</Styled.Label>
-                                    {item.type === "text" ||
-                                    item.type === "email" ||
-                                    item.type === "number" ||
-                                    item.type === "password" ? (
-                                      <Styled.Input
-                                        name={item.name}
-                                        type={item.type}
-                                        placeholder={item.placeholder}
-                                        value={item.value}
-                                        // required={item.required}
-                                        // onChange={handleChange}
-                                      />
-                                    ) : item.type === "select" ? (
-                                      <Styled.Select
-                                        id={sectionIndex.toString()}
-                                        // label={item.label}
-                                        name={item.name}
-                                        value={item.value}
-                                        // required={item.required}
-                                        // onChange={handleChange}
-                                        // placeholder={item.placeholder}
-                                      >
-                                        {item.options?.map((i, optionIndex) => (
-                                          <Styled.Option
-                                            key={optionIndex}
-                                            value={i}
-                                          >
-                                            {i}
-                                          </Styled.Option>
-                                        ))}
-                                      </Styled.Select>
-                                    ) : item.type === "button" ? (
-                                      <>
-                                        <input
-                                          // component="label"
-                                          // variant="contained"
-                                          type="file"
-                                          placeholder="file"
-                                          // onClick={() =>
-                                          //   handleBtnClick(item?.name)
-                                          // }
+                    <>
+                      <Styled.Form>
+                        <Styled.FormWrapper>
+                          {formFields?.map((items, index) => {
+                            return (
+                              <React.Fragment key={index}>
+                                {items?.sections?.map((item, sectionIndex) => {
+                                  item?.options?.unshift("Please Select");
+                                  return (
+                                    <Grid key={sectionIndex}>
+                                      <Styled.Label>{item.label}</Styled.Label>
+                                      {item.type === "text" ||
+                                      item.type === "email" ||
+                                      item.type === "number" ||
+                                      item.type === "password" ? (
+                                        <Styled.Input
+                                          name={item.name}
+                                          type={item.type}
+                                          placeholder={item.placeholder}
+                                          value={item.value}
+                                          // required={item.required}
+                                          // onChange={handleChange}
                                         />
-                                      </>
-                                    ) : null}
-                                  </Grid>
-                                );
-                              })}
-                            </React.Fragment>
-                          );
-                        })}
-                        <br />
-                      </Styled.FormWrapper>
-                      <Styled.SubmitButton
-                      // onClick={handleSubmit}
-                      >
-                        Save Changes
-                      </Styled.SubmitButton>
-                    </Styled.Form>
-                  </>
-                </Styled.ProfileFormContainer>
-              </Card>
-
-              {/* Premium Matches */}
+                                      ) : item.type === "select" ? (
+                                        <Styled.Select
+                                          id={sectionIndex.toString()}
+                                          // label={item.label}
+                                          name={item.name}
+                                          value={item.value}
+                                          // required={item.required}
+                                          // onChange={handleChange}
+                                          // placeholder={item.placeholder}
+                                        >
+                                          {item.options?.map(
+                                            (i, optionIndex) => (
+                                              <Styled.Option
+                                                key={optionIndex}
+                                                value={i}
+                                              >
+                                                {i}
+                                              </Styled.Option>
+                                            )
+                                          )}
+                                        </Styled.Select>
+                                      ) : item.type === "button" ? (
+                                        <>
+                                          <input
+                                            // component="label"
+                                            // variant="contained"
+                                            type="file"
+                                            placeholder="file"
+                                            // onClick={() =>
+                                            //   handleBtnClick(item?.name)
+                                            // }
+                                          />
+                                        </>
+                                      ) : null}
+                                    </Grid>
+                                  );
+                                })}
+                              </React.Fragment>
+                            );
+                          })}
+                          <br />
+                        </Styled.FormWrapper>
+                        <Styled.SubmitButton
+                        // onClick={handleSubmit}
+                        >
+                          Save Changes
+                        </Styled.SubmitButton>
+                      </Styled.Form>
+                    </>
+                  </Styled.ProfileFormContainer>
+                </Card>
+              )}
+              {/* Personal Details */}
 
               <br />
-              <Card
-                sx={{
-                  display: "flex",
-                  padding: "35px",
-                }}
-              >
-                <Styled.ProfileFormContainer>
-                  <div
-                    style={{ display: "flex", justifyContent: "space-between" }}
-                  >
-                    <h2 style={{ marginBottom: "20px" }}>Personal Details</h2>
-                    <Styled.SeeAllLink>See All</Styled.SeeAllLink>
-                  </div>
-                  {/* <Styled.IMGContainer>
-                  {DashboardPremiumimages?.map((item, index) => {
-                    return (
-                      <>
-                        <Styled.ImageItem key={index}>
-                          {/* <Styled.Image
-                            src={item.value}
-                            alt={`Img ${index + 1}`}
-                          /> */}
+              {activeTab === "personalDetails" && (
+                <Card
+                  sx={{
+                    display: "flex",
+                    padding: "35px",
+                  }}
+                >
+                  <Styled.ProfileFormContainer>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <h2 style={{ marginBottom: "20px" }}>Personal Details</h2>
+                      <Styled.SeeAllLink>See All</Styled.SeeAllLink>
+                    </div>
 
-                  {/* <Avatar
-                            alt={item.label}
-                            src={item.value}
-                            sx={{ width: 30, height: 30, marginRight: 2 }}
-                          />
-                          <Styled.Label>{item.label}</Styled.Label>
-                        </Styled.ImageItem>
-                      </>
-                    );
-                  })}
-                </Styled.IMGContainer> */}
-
-                  <>
-                    <Styled.Form>
-                      <Styled.FormWrapper>
-                        {PersonalDetailsFields?.map((items, index) => {
-                          return (
-                            <React.Fragment key={index}>
-                              {items?.sections?.map((item, sectionIndex) => {
-                                // item?.options?.unshift("Please Select");
-                                return (
-                                  <Grid key={sectionIndex}>
-                                    <Styled.Label>{item.label}</Styled.Label>
-                                    {item.type === "text" ||
-                                    item.type === "email" ||
-                                    item.type === "number" ||
-                                    item.type === "password" ? (
-                                      <Styled.Input
-                                        name={item.name}
-                                        type={item.type}
-                                        placeholder={item.placeholder}
-                                        value={item.value}
-                                        // required={item.required}
-                                        // onChange={handleChange}
-                                      />
-                                    ) : item.type === "select" ? (
-                                      <Styled.Select
-                                        id={sectionIndex.toString()}
-                                        // label={item.label}
-                                        name={item.name}
-                                        value={item.value}
-                                        // required={item.required}
-                                        // onChange={handleChange}
-                                        // placeholder={item.placeholder}
-                                      >
-                                        {/* {item.options?.map((i, optionIndex) => (
+                    <>
+                      <Styled.Form>
+                        <Styled.FormWrapper>
+                          {PersonalDetailsFields?.map((items, index) => {
+                            return (
+                              <React.Fragment key={index}>
+                                {items?.sections?.map((item, sectionIndex) => {
+                                  // item?.options?.unshift("Please Select");
+                                  return (
+                                    <Grid key={sectionIndex}>
+                                      <Styled.Label>{item.label}</Styled.Label>
+                                      {item.type === "text" ||
+                                      item.type === "email" ||
+                                      item.type === "number" ||
+                                      item.type === "password" ? (
+                                        <Styled.Input
+                                          name={item.name}
+                                          type={item.type}
+                                          placeholder={item.placeholder}
+                                          value={item.value}
+                                          // required={item.required}
+                                          // onChange={handleChange}
+                                        />
+                                      ) : item.type === "select" ? (
+                                        <Styled.Select
+                                          id={sectionIndex.toString()}
+                                          // label={item.label}
+                                          name={item.name}
+                                          value={item.value}
+                                          // required={item.required}
+                                          // onChange={handleChange}
+                                          // placeholder={item.placeholder}
+                                        >
+                                          {/* {item.options?.map((i, optionIndex) => (
                                           <Styled.Option
                                             key={optionIndex}
                                             value={i}
@@ -391,40 +468,40 @@ export default function Myprofile() {
                                             {i}
                                           </Styled.Option>
                                         ))} */}
-                                      </Styled.Select>
-                                    ) : item.type === "button" ? (
-                                      <>
-                                        <input
-                                          // component="label"
-                                          // variant="contained"
-                                          type="file"
-                                          placeholder="file"
-                                          // onClick={() =>
-                                          //   handleBtnClick(item?.name)
-                                          // }
-                                        />
-                                      </>
-                                    ) : null}
-                                  </Grid>
-                                );
-                              })}
-                            </React.Fragment>
-                          );
-                        })}
-                        <br />
-                      </Styled.FormWrapper>
-                      <Styled.SubmitButton
-                      // onClick={handleSubmit}
-                      >
-                        Save Changes
-                      </Styled.SubmitButton>
-                    </Styled.Form>
-                  </>
-                </Styled.ProfileFormContainer>
-              </Card>
+                                        </Styled.Select>
+                                      ) : item.type === "button" ? (
+                                        <>
+                                          <input
+                                            // component="label"
+                                            // variant="contained"
+                                            type="file"
+                                            placeholder="file"
+                                            // onClick={() =>
+                                            //   handleBtnClick(item?.name)
+                                            // }
+                                          />
+                                        </>
+                                      ) : null}
+                                    </Grid>
+                                  );
+                                })}
+                              </React.Fragment>
+                            );
+                          })}
+                          <br />
+                        </Styled.FormWrapper>
+                        <Styled.SubmitButton
+                        // onClick={handleSubmit}
+                        >
+                          Save Changes
+                        </Styled.SubmitButton>
+                      </Styled.Form>
+                    </>
+                  </Styled.ProfileFormContainer>
+                </Card>
+              )}
             </Box>
           </Styled.ProfileContent>
-          <Styled.Drawer>Drawer</Styled.Drawer>
         </Styled.DrawerContainer>
       </Card>
       <Footer />
