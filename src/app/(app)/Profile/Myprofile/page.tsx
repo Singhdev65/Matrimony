@@ -45,10 +45,13 @@ export default function Myprofile() {
   type Tab =
     | "basicDetails"
     | "personalDetails"
+    | "photoIntro"
     | "requests"
     | "shortlists"
     | "settings"
     | "help"
+    | "Educational"
+    | "Professional"
     | "aboutus";
 
   interface TabItem {
@@ -66,8 +69,12 @@ export default function Myprofile() {
   ];
 
   const DetailsTabs: TabItem[] = [
+    { label: "Photos & Intro", value: "photoIntro" },
+
     { label: "Basic Details", value: "basicDetails" },
     { label: "Personal Details", value: "personalDetails" },
+    { label: "Education Details", value: "Educational" },
+    { label: "Profession Details", value: "Professional" },
   ];
 
   const settingsTabs: TabItem[] = [
@@ -87,7 +94,7 @@ export default function Myprofile() {
           placeholder: "Enter First name",
           name: "full_name",
           required: "required",
-          value: "full_name",
+          // value: "full_name",
           // onChange: handleChange,
         },
         {
@@ -97,7 +104,7 @@ export default function Myprofile() {
           placeholder: "Enter Last name",
           name: "full_name",
           required: "required",
-          value: "full_name",
+          // value: "full_name",
           // onChange: handleChange,
         },
 
@@ -106,8 +113,8 @@ export default function Myprofile() {
           label: "Email-ID:",
           type: "email",
           name: "email_id",
-          value: "email_id",
-          placeholder: "Enter email",
+          // value: "email_id",
+          placeholder: "Enter email ID",
           required: "required",
           // onChange: handleChange,
         },
@@ -142,7 +149,7 @@ export default function Myprofile() {
           type: "text",
           placeholder: "Enter username",
           name: "username",
-          value: "username",
+          // value: "username",
           required: true,
           // onChange: handleChange,
         },
@@ -171,7 +178,7 @@ export default function Myprofile() {
           placeholder: "Enter Age",
           name: "age",
           required: "required",
-          value: "age",
+          // value: "age",
           // onChange: handleChange,
         },
 
@@ -180,8 +187,8 @@ export default function Myprofile() {
           label: "Religion:",
           type: "text",
           name: "religion",
-          value: "religion",
-          placeholder: "Enter religion",
+          // value: "religion",
+          placeholder: "Enter Religion",
           required: "required",
           // onChange: handleChange,
         },
@@ -190,7 +197,7 @@ export default function Myprofile() {
           label: "Caste:",
           type: "text",
           name: "caste",
-          value: "caste",
+          // value: "caste",
           placeholder: "Enter Caste",
 
           required: "required",
@@ -203,7 +210,7 @@ export default function Myprofile() {
           type: "text",
           placeholder: "Enter Languages known",
           name: "languages",
-          value: "languages",
+          // value: "languages",
 
           required: "required",
           // onChange: handleChange,
@@ -215,8 +222,119 @@ export default function Myprofile() {
           type: "text",
           placeholder: "Enter Mother Tongue",
           name: "mothertongue",
-          value: "mothertongue",
+          // value: "mothertongue",
           required: true,
+          // onChange: handleChange,
+        },
+      ],
+    },
+  ];
+
+  const Education = [
+    {
+      id: 0,
+      sections: [
+        {
+          id: 0,
+          label: "Highest Education:",
+          type: "text",
+          placeholder: "Enter Highest Education",
+          name: "highest_education",
+          required: "required",
+          // value: "highest_education",
+          // onChange: handleChange,
+        },
+        {
+          id: 1,
+          label: "Specialization:",
+          type: "text",
+          placeholder: "Enter Specialization",
+          name: "specialization",
+          required: "required",
+          // value: "age",
+          // onChange: handleChange,
+        },
+
+        {
+          id: 2,
+          label: "Institution:",
+          type: "text",
+          name: "institution",
+          // value: "religion",
+          placeholder: "Enter Institution",
+          required: "required",
+          // onChange: handleChange,
+        },
+        {
+          id: 3,
+          label: "Schooling:",
+          type: "text",
+          name: "schooling",
+          // value: "caste",
+          placeholder: "Enter Schooling",
+
+          required: "required",
+          // onChange: handleChange,
+        },
+      ],
+    },
+  ];
+
+  const Profession = [
+    {
+      id: 0,
+      sections: [
+        {
+          id: 0,
+          label: "Occupation:",
+          type: "text",
+          placeholder: "Enter Highest Education",
+          name: "highest_education",
+          required: "required",
+          // value: "highest_education",
+          // onChange: handleChange,
+        },
+        {
+          id: 1,
+          label: "Designation:",
+          type: "text",
+          placeholder: "Enter Specialization",
+          name: "specialization",
+          required: "required",
+          // value: "age",
+          // onChange: handleChange,
+        },
+
+        {
+          id: 2,
+          label: "Company:",
+          type: "text",
+          name: "institution",
+          // value: "religion",
+          placeholder: "Enter Institution",
+          required: "required",
+          // onChange: handleChange,
+        },
+        {
+          id: 3,
+          label: "Income:",
+          type: "text",
+          name: "schooling",
+          // value: "caste",
+          placeholder: "Enter Schooling",
+
+          required: "required",
+          // onChange: handleChange,
+        },
+        {
+          id: 4,
+          label: "Industry:",
+          type: "text",
+          name: "schooling",
+          // value: "caste",
+          placeholder: "Enter Schooling",
+
+          required: "required",
           // onChange: handleChange,
         },
       ],
@@ -456,6 +574,200 @@ export default function Myprofile() {
                                           // label={item.label}
                                           name={item.name}
                                           value={item.value}
+                                          // required={item.required}
+                                          // onChange={handleChange}
+                                          // placeholder={item.placeholder}
+                                        >
+                                          {/* {item.options?.map((i, optionIndex) => (
+                                          <Styled.Option
+                                            key={optionIndex}
+                                            value={i}
+                                          >
+                                            {i}
+                                          </Styled.Option>
+                                        ))} */}
+                                        </Styled.Select>
+                                      ) : item.type === "button" ? (
+                                        <>
+                                          <input
+                                            // component="label"
+                                            // variant="contained"
+                                            type="file"
+                                            placeholder="file"
+                                            // onClick={() =>
+                                            //   handleBtnClick(item?.name)
+                                            // }
+                                          />
+                                        </>
+                                      ) : null}
+                                    </Grid>
+                                  );
+                                })}
+                              </React.Fragment>
+                            );
+                          })}
+                          <br />
+                        </Styled.FormWrapper>
+                        <Styled.SubmitButton
+                        // onClick={handleSubmit}
+                        >
+                          Save Changes
+                        </Styled.SubmitButton>
+                      </Styled.Form>
+                    </>
+                  </Styled.ProfileFormContainer>
+                </Card>
+              )}
+
+              {/* Education Details */}
+
+              <br />
+              {activeTab === "Educational" && (
+                <Card
+                  sx={{
+                    display: "flex",
+                    padding: "35px",
+                  }}
+                >
+                  <Styled.ProfileFormContainer>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <h2 style={{ marginBottom: "20px" }}>
+                        Educational Details
+                      </h2>
+                      <Styled.SeeAllLink>See All</Styled.SeeAllLink>
+                    </div>
+
+                    <>
+                      <Styled.Form>
+                        <Styled.FormWrapper>
+                          {Education?.map((items, index) => {
+                            return (
+                              <React.Fragment key={index}>
+                                {items?.sections?.map((item, sectionIndex) => {
+                                  // item?.options?.unshift("Please Select");
+                                  return (
+                                    <Grid key={sectionIndex}>
+                                      <Styled.Label>{item.label}</Styled.Label>
+                                      {item.type === "text" ||
+                                      item.type === "email" ||
+                                      item.type === "number" ||
+                                      item.type === "password" ? (
+                                        <Styled.Input
+                                          name={item.name}
+                                          type={item.type}
+                                          placeholder={item.placeholder}
+                                          // value={item.value}
+                                          // required={item.required}
+                                          // onChange={handleChange}
+                                        />
+                                      ) : item.type === "select" ? (
+                                        <Styled.Select
+                                          id={sectionIndex.toString()}
+                                          // label={item.label}
+                                          name={item.name}
+                                          // value={item.value}
+                                          // required={item.required}
+                                          // onChange={handleChange}
+                                          // placeholder={item.placeholder}
+                                        >
+                                          {/* {item.options?.map((i, optionIndex) => (
+                                          <Styled.Option
+                                            key={optionIndex}
+                                            value={i}
+                                          >
+                                            {i}
+                                          </Styled.Option>
+                                        ))} */}
+                                        </Styled.Select>
+                                      ) : item.type === "button" ? (
+                                        <>
+                                          <input
+                                            // component="label"
+                                            // variant="contained"
+                                            type="file"
+                                            placeholder="file"
+                                            // onClick={() =>
+                                            //   handleBtnClick(item?.name)
+                                            // }
+                                          />
+                                        </>
+                                      ) : null}
+                                    </Grid>
+                                  );
+                                })}
+                              </React.Fragment>
+                            );
+                          })}
+                          <br />
+                        </Styled.FormWrapper>
+                        <Styled.SubmitButton
+                        // onClick={handleSubmit}
+                        >
+                          Save Changes
+                        </Styled.SubmitButton>
+                      </Styled.Form>
+                    </>
+                  </Styled.ProfileFormContainer>
+                </Card>
+              )}
+
+              {/* Professional Details */}
+
+              <br />
+              {activeTab === "Professional" && (
+                <Card
+                  sx={{
+                    display: "flex",
+                    padding: "35px",
+                  }}
+                >
+                  <Styled.ProfileFormContainer>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <h2 style={{ marginBottom: "20px" }}>
+                        Professional Details
+                      </h2>
+                      <Styled.SeeAllLink>See All</Styled.SeeAllLink>
+                    </div>
+
+                    <>
+                      <Styled.Form>
+                        <Styled.FormWrapper>
+                          {Profession?.map((items, index) => {
+                            return (
+                              <React.Fragment key={index}>
+                                {items?.sections?.map((item, sectionIndex) => {
+                                  // item?.options?.unshift("Please Select");
+                                  return (
+                                    <Grid key={sectionIndex}>
+                                      <Styled.Label>{item.label}</Styled.Label>
+                                      {item.type === "text" ||
+                                      item.type === "email" ||
+                                      item.type === "number" ||
+                                      item.type === "password" ? (
+                                        <Styled.Input
+                                          name={item.name}
+                                          type={item.type}
+                                          placeholder={item.placeholder}
+                                          // value={item.value}
+                                          // required={item.required}
+                                          // onChange={handleChange}
+                                        />
+                                      ) : item.type === "select" ? (
+                                        <Styled.Select
+                                          id={sectionIndex.toString()}
+                                          // label={item.label}
+                                          name={item.name}
+                                          // value={item.value}
                                           // required={item.required}
                                           // onChange={handleChange}
                                           // placeholder={item.placeholder}
