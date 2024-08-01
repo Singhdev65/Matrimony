@@ -8,6 +8,7 @@ import GenericHeader from "../../GenericComponents/GenericHeader/Header";
 import Footer from "../../../app/GenericComponents/GenericFooter/Footer";
 import Link from "next/link";
 import { Edit as EditIcon } from "@mui/icons-material";
+import { useRouter } from "next/navigation";
 
 export default function Profile() {
   const [activeTab, setActiveTab] = useState<Tab>("plan");
@@ -36,8 +37,15 @@ export default function Profile() {
     value: string;
   }
 
+  const router = useRouter();
+
   const handleTabChange = (newValue: Tab) => {
     setActiveTab(newValue);
+  };
+
+  const handleMyprofileClick = () => {
+    console.log("Edit Icon clicked");
+    router.push("/Profile/Myprofile");
   };
 
   const requestsTabs: TabItem[] = [
@@ -88,7 +96,7 @@ export default function Profile() {
         <Styled.DrawerContainer>
           <Styled.Drawer>
             <Styled.ProfileDetailContainer>
-              <div>
+              <div onClick={handleMyprofileClick} style={{ cursor: "pointer" }}>
                 <Avatar
                   alt="Profile Picture"
                   src="/path/to/profile-picture.jpg"

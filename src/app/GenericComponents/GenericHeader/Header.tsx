@@ -2,10 +2,11 @@ import React from "react";
 import * as Styled from "./styles";
 import AppLogo from "../../../Assets/Images/logo.jpg";
 import Image from "next/image";
-// import { useRouter } from 'next/router';
+import { useRouter } from "next/navigation";
 
 interface ButtonItem {
   label: string;
+  // onClick?: () => void;
 }
 
 interface GenericHeaderProps {
@@ -17,12 +18,15 @@ const GenericHeader: React.FC<GenericHeaderProps> = ({
   buttons,
   showSearch,
 }) => {
-  // const router = useRouter();
+  const router = useRouter();
 
-  // const handlebttnClick = (label: string) => {
-  //   if (label === '') {
-  //     router.push('/path/path');
-  // };
+  const handlebttnClick = (label: string) => {
+    if (label === "Sign in") {
+      router.push("/sign-in");
+    } else {
+      console.log(`${label} button clicked`);
+    }
+  };
 
   return (
     <>
@@ -36,7 +40,7 @@ const GenericHeader: React.FC<GenericHeaderProps> = ({
             return (
               <Styled.Button
                 key={index}
-                // onClick={() => handlebttnClick(item.label)}
+                onClick={() => handlebttnClick(item.label)}
               >
                 {item.label}
               </Styled.Button>

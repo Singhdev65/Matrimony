@@ -9,7 +9,7 @@ export const HeaderContainer = styled.header`
   background-color: #f0f0f0;
   color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  background: #fff;
+  background: #b38335;
 `;
 export const Logo = styled.div``;
 export const Button = styled.button`
@@ -19,6 +19,7 @@ export const Button = styled.button`
   padding: 10px 20px;
   margin-left: 10px;
   cursor: pointer;
+  border-radius: 15px;
   &:hover {
     background-color: #fbceb1;
   }

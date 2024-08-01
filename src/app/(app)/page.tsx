@@ -1,112 +1,113 @@
 "use client";
 
 import styled from "styled-components";
+import Signup from "../(auth)/sign-up/page";
 
-const HeaderContainer = styled.header`
-  font-family: sans-serif;
-  width: 100%;
-  min-height: 100vh;
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
-  background-size: cover;
-  position: relative;
-`;
+// const HeaderContainer = styled.header`
+//   font-family: sans-serif;
+//   width: 100%;
+//   min-height: 100vh;
+//   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+//   background-size: cover;
+//   position: relative;
+// `;
 
-const InfoSection = styled.div`
-  color: white;
-  font-size: 20px;
-  padding: 20px 70px;
-  cursor: pointer;
-`;
+// const InfoSection = styled.div`
+//   color: white;
+//   font-size: 20px;
+//   padding: 20px 70px;
+//   cursor: pointer;
+// `;
 
-const InfoItem = styled.span`
-  margin: 0 10px;
-`;
+// const InfoItem = styled.span`
+//   margin: 0 10px;
+// `;
 
-const Navigation = styled.nav`
-  width: 100%;
-  height: 70px;
-  padding: 0 70px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
+// const Navigation = styled.nav`
+//   width: 100%;
+//   height: 70px;
+//   padding: 0 70px;
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+// `;
 
-const Logo = styled.div`
-  color: white;
-  font-size: 2em;
-  font-family: normal;
-  letter-spacing: 2px;
+// const Logo = styled.div`
+//   color: white;
+//   font-size: 2em;
+//   font-family: normal;
+//   letter-spacing: 2px;
 
-  i {
-    color: #e84393;
-  }
-`;
+//   i {
+//     color: #e84393;
+//   }
+// `;
 
-const Menu = styled.div`
-  display: flex;
-`;
+// const Menu = styled.div`
+//   display: flex;
+// `;
 
-const MenuItem = styled.a`
-  text-decoration: none;
-  color: white;
-  padding: 10px 20px;
-  font-size: 20px;
-  transition: 0.4s;
+// const MenuItem = styled.a`
+//   text-decoration: none;
+//   color: white;
+//   padding: 10px 20px;
+//   font-size: 20px;
+//   transition: 0.4s;
 
-  &:last-child {
-    background: #e84393;
-    border-radius: 8px;
-  }
+//   &:last-child {
+//     background: #e84393;
+//     border-radius: 8px;
+//   }
 
-  &:hover {
-    background: #e84393;
-    border-radius: 8px;
-  }
-`;
+//   &:hover {
+//     background: #e84393;
+//     border-radius: 8px;
+//   }
+// `;
 
-const HeroText = styled.div`
-  position: absolute;
-  top: 30%;
-  left: 5%;
-  max-width: 600px;
-  color: white;
+// const HeroText = styled.div`
+//   position: absolute;
+//   top: 30%;
+//   left: 5%;
+//   max-width: 600px;
+//   color: white;
 
-  h1 {
-    font-size: 2em;
-  }
+//   h1 {
+//     font-size: 2em;
+//   }
 
-  h2 {
-    font-size: 4em;
+//   h2 {
+//     font-size: 4em;
 
-    span {
-      color: #e84393;
-    }
-  }
+//     span {
+//       color: #e84393;
+//     }
+//   }
 
-  p {
-    margin: 15px 0;
-    line-height: 2em;
-  }
+//   p {
+//     margin: 15px 0;
+//     line-height: 2em;
+//   }
 
-  a {
-    text-decoration: none;
-    color: white;
-    padding: 10px 20px;
-    border: 1px solid white;
-    letter-spacing: 2px;
-    border-radius: 8px;
-    transition: 0.4s;
+//   a {
+//     text-decoration: none;
+//     color: white;
+//     padding: 10px 20px;
+//     border: 1px solid white;
+//     letter-spacing: 2px;
+//     border-radius: 8px;
+//     transition: 0.4s;
 
-    &:hover {
-      background: #e84393;
-    }
-  }
-`;
+//     &:hover {
+//       background: #e84393;
+//     }
+//   }
+// `;
 
 const Compoenent = () => {
   return (
     <>
-      <HeaderContainer>
+      {/* <HeaderContainer>
         <InfoSection>
           <InfoItem>+91 9876543210</InfoItem>
           <InfoItem>info@mailinator.com</InfoItem>
@@ -135,7 +136,9 @@ const Compoenent = () => {
           <br />
           <a href="#">Read more</a>
         </HeroText>
-      </HeaderContainer>
+      </HeaderContainer> */}
+
+      <Signup />
     </>
   );
 };

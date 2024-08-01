@@ -6,11 +6,44 @@ export const Form = styled.form`
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  padding: 20px;
+  padding: 30px;
   border: 1px solid #ccc;
   border-radius: 10px;
   width: 300px;
-  margin: auto;
+  z-index: 999;
+  background-color: #fff;
+  position: absolute;
+  top: 110px;
+  left: 60rem;
+
+  @media (max-width: 768px) {
+    width: 90%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 20px;
+  }
+
+  @media (max-width: 480px) {
+    width: 100%;
+    padding: 15px;
+    top: 20px;
+  }
+`;
+
+export const Outerdiv = styled.div`
+  background-color: green;
+  ${"" /* height: 100vh; */}
+  min-height: 110vh;
+  position: relative;
+  overflow: auto;
+
+  @media (max-width: 768px) {
+    padding: 10px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 5px;
+  }
 `;
 
 export const Input = styled.input`
@@ -50,6 +83,27 @@ export const SubmitButton = styled.input`
   &:hover {
     background-color: #0056b3;
   }
+`;
+
+export const Container = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-image: url("path-to-your-image.jpg");
+  background-size: cover;
+  background-position: center;
+`;
+
+export const FormContainer = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 999;
 `;
 
 // export const HeaderContainer = styled.header`
