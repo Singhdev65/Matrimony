@@ -2,6 +2,8 @@ import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/user.model";
 import bcrypt from "bcryptjs";
 import { sendVerificationEmail } from "@/helpers/sendVerificationEmail";
+import RolesModel from "@/model/role.model";
+import UserRolesModel from "@/model/userRoles.model";
 
 export async function POST(request: Request) {
   await dbConnect();
@@ -66,7 +68,15 @@ export async function POST(request: Request) {
         isVerified: false,
       });
 
+      const defaultRole = await RolesModel.findOne({ is_default: 2 });
+
+      const userPermission = new UserRolesModel({
+        user_id: newUser._id,
+        user_role: defaultRole?._id,
+      });
+
       await newUser.save();
+      await userPermission.save();
     }
 
     // send verification email
