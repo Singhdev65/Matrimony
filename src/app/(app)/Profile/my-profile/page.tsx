@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import Divider from "@mui/material/Divider";
 import { Box, Grid, Card, Avatar } from "@mui/material";
 import GenericHeader from "../../../GenericComponents/GenericHeader/Header";
-import Footer from "../../../../app/GenericComponents/GenericFooter/Footer";
+import Footer from "../../../GenericComponents/GenericFooter/Footer";
 import Link from "next/link";
 import { Edit as EditIcon } from "@mui/icons-material";
 

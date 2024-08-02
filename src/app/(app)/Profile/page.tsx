@@ -45,7 +45,7 @@ export default function Profile() {
 
   const handleMyprofileClick = () => {
     console.log("Edit Icon clicked");
-    router.push("/Profile/Myprofile");
+    router.push("/Profile/my-profile");
   };
 
   const requestsTabs: TabItem[] = [

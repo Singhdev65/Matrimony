@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import * as Styled from "./styles";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
@@ -14,6 +14,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import GenericHeader from "../../../app/GenericComponents/GenericHeader/Header";
 import { FamilyRestroomRounded } from "@mui/icons-material";
+import GenericLoader from "@/app/GenericComponents/GenericLoader/GenericLoader";
 
 type FormData = {
   userName: string;
@@ -38,6 +39,8 @@ const Signup: React.FC = () => {
     },
   });
 
+  const [loading, setLoading] = useState(false);
+
   const buttons = [
     { label: "About" },
     { label: "Contact us" },
@@ -48,8 +51,10 @@ const Signup: React.FC = () => {
   const router = useRouter();
 
   const onSubmit = (data: FormData) => {
+    setLoading(true);
     console.log(data, "heydata");
     router.push("/Profile");
+    setLoading(false);
   };
   return (
     <Styled.Outerdiv>
@@ -71,6 +76,8 @@ const Signup: React.FC = () => {
       >
         <GenericHeader buttons={buttons} showSearch={showSearch} />
       </div>
+
+      {loading && <GenericLoader />}
 
       <Styled.Form onSubmit={form.handleSubmit(onSubmit)}>
         <Styled.Input
