@@ -27,6 +27,15 @@ type FormData = {
   agree: boolean;
 };
 
+type FormField = {
+  name: keyof FormData;
+  label: string;
+  placeholder?: string;
+  type: "text" | "email" | "number" | "select" | "checkbox";
+  required: boolean;
+  options?: string[];
+};
+
 const Signup: React.FC = () => {
   const form = useForm<z.infer<typeof signUpValidation>>({
     resolver: zodResolver(signUpValidation),
@@ -56,6 +65,66 @@ const Signup: React.FC = () => {
     router.push("/Profile");
     setLoading(false);
   };
+
+  const formFields: FormField[] = [
+    {
+      name: "userName",
+      label: "User Name:",
+      placeholder: "Enter your user name",
+      type: "text",
+      required: true,
+    },
+    {
+      name: "email",
+      label: "Email:",
+      placeholder: "Enter your email",
+      type: "email",
+      required: true,
+    },
+    {
+      name: "number",
+      label: "Phone Number:",
+      placeholder: "Enter your phone number",
+      type: "text",
+      required: true,
+    },
+    {
+      name: "firstName",
+      label: "First Name:",
+      placeholder: "Enter your first name",
+      type: "text",
+      required: true,
+    },
+    {
+      name: "lastName",
+      label: "Last Name:",
+      placeholder: "Enter your last name",
+      type: "text",
+      required: true,
+    },
+    {
+      name: "age",
+      label: "Age:",
+      placeholder: "Enter your age",
+      type: "number",
+      required: true,
+    },
+    {
+      name: "gender",
+      label: "Gender:",
+      placeholder: "Select gender...",
+      type: "select",
+      required: true,
+      options: ["Select gender...", "male", "female"],
+    },
+    {
+      name: "agree",
+      label: "I agree to the terms and conditions",
+      type: "checkbox",
+      required: true,
+    },
+  ];
+
   return (
     <Styled.Outerdiv>
       <Image
@@ -80,72 +149,48 @@ const Signup: React.FC = () => {
       {loading && <GenericLoader />}
 
       <Styled.Form onSubmit={form.handleSubmit(onSubmit)}>
-        <Styled.Input
-          {...form.register("userName", { required: true })}
-          placeholder="User Name"
-        />
-        {form.formState.errors.userName && (
-          <Styled.Error>{form.formState.errors.userName.message}</Styled.Error>
-        )}
-        <Styled.Input
-          {...form.register("email", { required: true })}
-          placeholder="Email"
-        />
-        {form.formState.errors.email && (
-          <Styled.Error>{form.formState.errors.email.message}</Styled.Error>
-        )}
-
-        <Styled.Input
-          {...form.register("number", { required: true })}
-          placeholder="Number"
-        />
-        {form.formState.errors.number && (
-          <Styled.Error>{form.formState.errors.number.message}</Styled.Error>
-        )}
-
-        <Styled.Input
-          {...form.register("firstName", { required: true })}
-          placeholder="First Name"
-        />
-        {form.formState.errors.firstName && (
-          <Styled.Error>{form.formState.errors.firstName.message}</Styled.Error>
-        )}
-
-        <Styled.Input
-          {...form.register("lastName", { required: true })}
-          placeholder="Last Name"
-        />
-        {form.formState.errors.lastName && (
-          <Styled.Error>{form.formState.errors.lastName.message}</Styled.Error>
-        )}
-
-        <Styled.Input
-          {...form.register("age", { required: true })}
-          placeholder="Age"
-        />
-        {form.formState.errors.age && (
-          <Styled.Error>{form.formState.errors.age.message}</Styled.Error>
-        )}
-
-        <Styled.Select {...form.register("gender", { required: true })}>
-          <option value="">Select...</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-        </Styled.Select>
-        {form.formState.errors.gender && (
-          <Styled.Error>{form.formState.errors.gender.message}</Styled.Error>
-        )}
-
-        <Styled.Label>
-          <Styled.Input
-            type="checkbox"
-            {...form.register("agree", { required: true })}
-          />
-          I agree to the terms and conditions
-        </Styled.Label>
-        {form.formState.errors.agree && (
-          <Styled.Error>{form.formState.errors.agree.message}</Styled.Error>
-        )}
+        {formFields?.map((field) => (
+          <Styled.InputContainer key={field.name}>
+            {field.type === "checkbox" ? (
+              <Styled.CheckboxContainer>
+                <input
+                  type="checkbox"
+                  id={field.name}
+                  {...form.register(field.name, { required: field.required })}
+                />
+                <Styled.CheckboxLabel>{field.label}</Styled.CheckboxLabel>
+              </Styled.CheckboxContainer>
+            ) : (
+              <>
+                <Styled.Label htmlFor={field.name}>{field.label}</Styled.Label>
+                {field.type === "select" ? (
+                  <Styled.Select
+                    id={field.name}
+                    {...form.register(field.name, { required: field.required })}
+                  >
+                    {field.options?.map((option, index) => (
+                      <option key={option} value={index === 0 ? "" : option}>
+                        {option}
+                      </option>
+                    ))}
+                  </Styled.Select>
+                ) : (
+                  <Styled.Input
+                    id={field.name}
+                    type={field.type}
+                    {...form.register(field.name, { required: field.required })}
+                    placeholder={field.placeholder}
+                  />
+                )}
+              </>
+            )}
+            {form.formState.errors[field.name] && (
+              <Styled.Error>
+                {form.formState.errors[field.name]?.message}
+              </Styled.Error>
+            )}
+          </Styled.InputContainer>
+        ))}
         <input type="submit" />
       </Styled.Form>
     </Styled.Outerdiv>
@@ -153,12 +198,3 @@ const Signup: React.FC = () => {
 };
 
 export default Signup;
-
-{
-  /* <Image
-src={SignupImage}
-alt="Signup Image"
-layout="fill"
-objectFit="cover"
-/> */
-}
