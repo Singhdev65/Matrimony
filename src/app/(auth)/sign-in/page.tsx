@@ -45,7 +45,7 @@ const Login = () => {
         <Styled.LeftSection>{/* CAROUSEL */}</Styled.LeftSection>
         <Styled.RightSection>
           {/* LOGIN FORM */}
-          {/* <form onSubmit={form.handleSubmit(onSubmit)}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
             <Styled.FormGroup>
               <Styled.Label htmlFor="identifier">Username/Email</Styled.Label>
               <Styled.Input id="identifier" {...form.register("identifier")} />
@@ -71,7 +71,7 @@ const Login = () => {
             </Styled.FormGroup>
 
             <button type="submit">Sign In</button>
-          </form> */}
+          </form>
           <button type="submit" onClick={() => signIn("google")}>
             Google
           </button>
