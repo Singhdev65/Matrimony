@@ -1,42 +1,24 @@
 "use client";
 import React, { useState } from "react";
-import * as Styled from "./styles";
-import { signIn } from "next-auth/react";
 import Image from "next/image";
-import SignupImage from "../../../Assets/Images/signup5.jpg";
-import GoogleLogo from "../../../Assets/Images/googleLogo.png";
-import AppleLogo from "../../../Assets/Images/appleLogo.png";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { signUpValidation } from "@/schemas/signupSchema";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
+
+import * as Styled from "./styles";
+import { FormData } from "./types";
+import { buttons, signUpformFields } from "./constant";
+import { signUpValidation } from "@/schemas/signupSchema";
+import SignupImage from "../../../Assets/Images/signup5.jpg";
 import GenericHeader from "../../../app/GenericComponents/GenericHeader/Header";
-import { FamilyRestroomRounded } from "@mui/icons-material";
 import GenericLoader from "@/app/GenericComponents/GenericLoader/GenericLoader";
 
-type FormData = {
-  userName: string;
-  email: string;
-  number: string;
-  firstName: string;
-  lastName: string;
-  age: number;
-  gender: string;
-  agree: boolean;
-};
-
-type FormField = {
-  name: keyof FormData;
-  label: string;
-  placeholder?: string;
-  type: "text" | "email" | "number" | "select" | "checkbox";
-  required: boolean;
-  options?: string[];
-};
-
 const Signup: React.FC = () => {
+  const [loading, setLoading] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof signUpValidation>>({
     resolver: zodResolver(signUpValidation),
     defaultValues: {
@@ -48,82 +30,11 @@ const Signup: React.FC = () => {
     },
   });
 
-  const [loading, setLoading] = useState(false);
-
-  const buttons = [
-    { label: "About" },
-    { label: "Contact us" },
-    { label: "Sign in" },
-  ];
-  const showSearch = false;
-
-  const router = useRouter();
-
   const onSubmit = (data: FormData) => {
     setLoading(true);
-    console.log(data, "heydata");
     router.push("/Profile");
     setLoading(false);
   };
-
-  const formFields: FormField[] = [
-    {
-      name: "userName",
-      label: "User Name:",
-      placeholder: "Enter your user name",
-      type: "text",
-      required: true,
-    },
-    {
-      name: "email",
-      label: "Email:",
-      placeholder: "Enter your email",
-      type: "email",
-      required: true,
-    },
-    {
-      name: "number",
-      label: "Phone Number:",
-      placeholder: "Enter your phone number",
-      type: "text",
-      required: true,
-    },
-    {
-      name: "firstName",
-      label: "First Name:",
-      placeholder: "Enter your first name",
-      type: "text",
-      required: true,
-    },
-    {
-      name: "lastName",
-      label: "Last Name:",
-      placeholder: "Enter your last name",
-      type: "text",
-      required: true,
-    },
-    {
-      name: "age",
-      label: "Age:",
-      placeholder: "Enter your age",
-      type: "number",
-      required: true,
-    },
-    {
-      name: "gender",
-      label: "Gender:",
-      placeholder: "Select gender...",
-      type: "select",
-      required: true,
-      options: ["Select gender...", "male", "female"],
-    },
-    {
-      name: "agree",
-      label: "I agree to the terms and conditions",
-      type: "checkbox",
-      required: true,
-    },
-  ];
 
   return (
     <Styled.Outerdiv>
@@ -149,7 +60,7 @@ const Signup: React.FC = () => {
       {loading && <GenericLoader />}
 
       <Styled.Form onSubmit={form.handleSubmit(onSubmit)}>
-        {formFields?.map((field) => (
+        {signUpformFields?.map((field) => (
           <Styled.InputContainer key={field.name}>
             {field.type === "checkbox" ? (
               <Styled.CheckboxContainer>

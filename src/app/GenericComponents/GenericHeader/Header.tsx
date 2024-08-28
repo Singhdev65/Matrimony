@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 
 interface ButtonItem {
   label: string;
-  // onClick?: () => void;
 }
 
 interface GenericHeaderProps {
@@ -20,12 +19,15 @@ const GenericHeader: React.FC<GenericHeaderProps> = ({
 }) => {
   const router = useRouter();
 
-  const handlebttnClick = (label: string) => {
-    if (label === "Sign in") {
-      router.push("/sign-in");
-    } else {
-      console.log(`${label} button clicked`);
-    }
+  const handleButtonClick = (label: string) => {
+    const routes: Record<string, string> = {
+      "Sign in": "/sign-in",
+      About: "/about",
+      "Contact us": "/contact-us",
+    };
+
+    const route = routes[label] || "/";
+    router.push(route);
   };
 
   return (
@@ -40,7 +42,7 @@ const GenericHeader: React.FC<GenericHeaderProps> = ({
             return (
               <Styled.Button
                 key={index}
-                onClick={() => handlebttnClick(item.label)}
+                onClick={() => handleButtonClick(item.label)}
               >
                 {item.label}
               </Styled.Button>
