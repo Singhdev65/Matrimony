@@ -1,7 +1,7 @@
 "use client";
 
 import * as Styled from "./styles";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Divider from "@mui/material/Divider";
 import { Box, Grid, Card, Avatar } from "@mui/material";
 import GenericHeader from "../../GenericComponents/GenericHeader/Header";
@@ -9,8 +9,26 @@ import Footer from "../../../app/GenericComponents/GenericFooter/Footer";
 import Link from "next/link";
 import { Edit as EditIcon } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 export default function Profile() {
+  const getData = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:3000/api/users/get-matches"
+      );
+
+      const data = await response.json();
+      console.log(data, "response");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   const [activeTab, setActiveTab] = useState<Tab>("plan");
   type Tab =
     | "plan"
@@ -123,8 +141,7 @@ export default function Profile() {
                     <Styled.CustomTab
                       key={index}
                       // active={activeTab === item.value}
-                      onClick={() => handleTabChange(item.value)}
-                    >
+                      onClick={() => handleTabChange(item.value)}>
                       {item.label}
                     </Styled.CustomTab>
                   );
@@ -141,8 +158,7 @@ export default function Profile() {
                     <Styled.CustomTab
                       key={index}
                       // active={activeTab === item.value}
-                      onClick={() => handleTabChange(item.value)}
-                    >
+                      onClick={() => handleTabChange(item.value)}>
                       {item.label}
                     </Styled.CustomTab>
                   );
@@ -174,8 +190,7 @@ export default function Profile() {
                 sx={{
                   display: "flex",
                   padding: "35px",
-                }}
-              >
+                }}>
                 <Styled.ProfileFormContainer>
                   <h2 style={{ marginBottom: "20px" }}>Choose By Categories</h2>
 
@@ -198,12 +213,13 @@ export default function Profile() {
                   display: "flex",
                   padding: "35px",
                   position: "relative",
-                }}
-              >
+                }}>
                 <Styled.ProfileFormContainer>
                   <div
-                    style={{ display: "flex", justifyContent: "space-between" }}
-                  >
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}>
                     <h2 style={{ marginBottom: "20px" }}>My Matches</h2>
                     <Styled.SeeAllLink>See All</Styled.SeeAllLink>
                   </div>
@@ -238,12 +254,13 @@ export default function Profile() {
                 sx={{
                   display: "flex",
                   padding: "35px",
-                }}
-              >
+                }}>
                 <Styled.ProfileFormContainer>
                   <div
-                    style={{ display: "flex", justifyContent: "space-between" }}
-                  >
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}>
                     <h2 style={{ marginBottom: "20px" }}>Premium Matches</h2>
                     <Styled.SeeAllLink>See All</Styled.SeeAllLink>
                   </div>
